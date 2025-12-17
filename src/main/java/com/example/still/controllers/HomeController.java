@@ -19,6 +19,7 @@ public class HomeController {
         model.addAttribute("notes", noteService.getAll());
         return "index";
     }
+//    hello
 
     @GetMapping("/note")
     public String diqka(Model model){
