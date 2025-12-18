@@ -5,31 +5,33 @@ import com.example.still.services.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
     private final NoteService noteService;
 
-    @GetMapping("/index")
-    public String index(Model model){
-        model.addAttribute("notes", noteService.getAll());
-        return "index";
-    }
-//    hello
-
     @GetMapping("/note")
     public String diqka(Model model){
-        model.addAttribute("note", new NoteDto());
+        NoteDto note;
+        try {
+            note = noteService.findOneById(1L);
+        } catch (Exception e) {
+            note = new NoteDto(1L, "");
+            noteService.add(note);
+        }
+        model.addAttribute("note", note);
         return "new";
     }
 
-    @PostMapping("/note")
-    public String addNote(@ModelAttribute NoteDto noteDto){
-        noteService.add(noteDto);
-        return "redirect:/note";
+
+    @PostMapping("/note/autosave")
+    @ResponseBody
+    public void autosave(@RequestBody NoteDto dto) {
+        dto.setId(1L);
+        noteService.add(dto);
     }
+
+
 }

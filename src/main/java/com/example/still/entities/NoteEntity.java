@@ -18,5 +18,6 @@ public class NoteEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String note;
 }

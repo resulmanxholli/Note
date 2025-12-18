@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NoteService {
     public NoteDto add(NoteDto note);
-    public List<NoteDto> getAll();
-    public NoteDto getOneById(Long id);
+    public List<NoteDto> findAll();
+    public NoteDto findOneById(Long id);
 
 }

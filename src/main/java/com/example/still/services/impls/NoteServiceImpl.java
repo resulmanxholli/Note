@@ -18,24 +18,23 @@ public class NoteServiceImpl implements NoteService {
 
 
     @Override
-    public NoteDto add(NoteDto note) {
-        NoteEntity propertyEntity = mapper.toEntity(note);
-        repository.save(propertyEntity);
-        return mapper.toDto(propertyEntity);
+    public NoteDto add(NoteDto dto) {
+        dto.setId(1L);
+        return mapper.toDto(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public List<NoteDto> getAll() {
-        List<NoteEntity> properties = repository.findAll();
-        return mapper.toDtoList(properties);
+    public List<NoteDto> findAll() {
+        List<NoteEntity> notes = repository.findAll();
+        return mapper.toDtoList(notes);
 
     }
 
     @Override
-    public NoteDto getOneById(Long id) {
-        NoteEntity property = repository.findById(id).orElse(null);
+    public NoteDto findOneById(Long id) {
+        NoteEntity note = repository.findById(id).orElse(null);
 
-        return mapper.toDto(property);
+        return mapper.toDto(note);
     }
 
 

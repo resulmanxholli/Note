@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{shared/_layout :: layout('Still app',~{::div#content},null)}">
+<html lang="en" th:replace="~{shared/_layout :: layout('Still app',~{::div#content},null,null)}">
 
-<div id="content" class="container-fluid h-100 d-flex flex-column p-0"
-     th:if="${note!=null}" >
+<div id="content" class="container-fluid h-100 d-flex flex-column p-0">
 
-  <form th:action="@{/note}"  method="post" th:object="${note}" class="d-flex flex-column flex-grow-1 h-100">
-    <label for="only" class="visually-hidden">Main text area</label>
+  <form id="noteForm"
+        th:object="${note}"
+        class="d-flex flex-column flex-grow-1 h-100">
 
-    <textarea id="only" class="form-control  flex-grow-1" name="note" placeholder="Start typing..."
-              th:field="*{note}" autofocus></textarea>
+    <textarea id="note"
+              class="form-control flex-grow-1"
+              placeholder="Start typing..."
+              th:field="*{note}">
+    </textarea>
 
-
-    <div class="mt-3">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+    <small id="status" class="text-muted mt-1"></small>
   </form>
+
 
 </div>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="layout(title, content, styles)">
+<html lang="en" th:fragment="layout(title, content, styles,scripts)">
 
 <head>
     <meta charset="UTF-8">
@@ -17,6 +17,15 @@
 <body  class="d-flex flex-column">
 
 <th:block th:replace="${content}"></th:block>
+
+
+
+<script src="script.js"></script>
+
+
+<th:block th:if="${scripts!=null}">
+    <th:block th:replace="${scripts}"></th:block>
+</th:block>
 
 </body>
 </html>
