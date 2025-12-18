@@ -3,9 +3,9 @@
 
 <div id="content" class="container-fluid h-100 d-flex flex-column p-0">
 
-  <form id="noteForm"
-        th:object="${note}"
-        class="d-flex flex-column flex-grow-1 h-100">
+    <form id="noteForm"
+          th:object="${note}"
+          class="d-flex flex-column flex-grow-1 h-100">
 
     <textarea id="note"
               class="form-control flex-grow-1"
@@ -13,8 +13,8 @@
               th:field="*{note}">
     </textarea>
 
-    <small id="status" class="text-muted mt-1"></small>
-  </form>
+        <small id="status" class="text-muted mt-1"></small>
+    </form>
 
 
 </div>

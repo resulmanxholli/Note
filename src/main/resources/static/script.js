@@ -1,17 +1,16 @@
+const textarea = document.getElementById("note");
+const status = document.getElementById("status");
 
-    const textarea = document.getElementById("note");
-    const status = document.getElementById("status");
+let timeout = null;
 
-    let timeout = null;
-
-    textarea.addEventListener("input", () => {
+textarea.addEventListener("input", () => {
     status.innerText = "Saving...";
     clearTimeout(timeout);
 
     timeout = setTimeout(saveNote, 600);
 });
 
-    function saveNote() {
+function saveNote() {
     fetch("/note/autosave", {
         method: "POST",
         headers: {

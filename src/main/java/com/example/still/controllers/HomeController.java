@@ -13,16 +13,9 @@ public class HomeController {
     private final NoteService noteService;
 
     @GetMapping("/note")
-    public String diqka(Model model){
-        NoteDto note;
-        try {
-            note = noteService.findOneById(1L);
-        } catch (Exception e) {
-            note = new NoteDto(1L, "");
-            noteService.add(note);
-        }
-        model.addAttribute("note", note);
-        return "new";
+    public String show(Model model){
+        model.addAttribute("note", noteService.create());
+        return "notepad";
     }
 
 
@@ -32,6 +25,20 @@ public class HomeController {
         dto.setId(1L);
         noteService.add(dto);
     }
+
+
+//    @GetMapping("/note")
+//    public String show(Model model){
+//        model.addAttribute("note", new NoteDto());
+//        return "notepad";
+//    }
+//
+//    @PostMapping("/note/autosave")
+//    @ResponseBody
+//    public void addNote(@RequestBody NoteDto noteDto){
+//        noteDto.setId(1L);
+//        noteService.add(noteDto);
+//    }
 
 
 }
