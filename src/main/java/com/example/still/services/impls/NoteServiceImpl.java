@@ -2,6 +2,7 @@ package com.example.still.services.impls;
 
 import com.example.still.dtos.NoteDto;
 import com.example.still.entities.NoteEntity;
+import com.example.still.hepler.RandomIdGenerator;
 import com.example.still.mappers.NoteMapper;
 import com.example.still.repositories.NoteRepository;
 import com.example.still.services.NoteService;
@@ -19,19 +20,40 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public NoteDto add(NoteDto dto) {
-        dto.setId(1L);
+        if (dto.getId() == null || dto.getId().isBlank()) {
+            dto.setId(RandomIdGenerator.generate());
+        }
         return mapper.toDto(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
     public NoteDto create() {
-        NoteEntity entity = repository.findById(1L).orElse(null);
+        String id = RandomIdGenerator.generate();
+        NoteEntity note = new NoteEntity();
+        note.setId(id);
+        note.setNote("");
+        repository.save(note);
+        return mapper.toDto(note);
+    }
 
-        if (entity == null) {
-            entity = new NoteEntity();
-            entity.setNote("");
-            repository.save(entity);
-        }
+    @Override
+    public NoteDto getId(String id) {
+        return repository.findById(id)
+                .map(mapper::toDto)
+                .orElseGet(() -> {
+                    NoteEntity note = new NoteEntity();
+                    note.setId(id);
+                    note.setNote("");
+                    repository.save(note);
+                    return mapper.toDto(note);
+                });
+    }
+
+    @Override
+    public NoteDto update(String id, NoteDto content) {
+        var entity = mapper.toEntity(content);
+        entity.setId(id);
+        repository.save(entity);
 
         return mapper.toDto(entity);
     }

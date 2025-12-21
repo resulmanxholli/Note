@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{shared/_layout :: layout('Still app',~{::div#content},null,null)}">
+<html lang="en" th:replace="~{/shared/_layout :: layout('Still app',~{::div#content},null,null)}">
 
 <div id="content" class="container-fluid h-100 d-flex flex-column p-0">
 
@@ -7,6 +7,7 @@
           th:object="${note}"
           class="d-flex flex-column flex-grow-1 h-100">
 
+        <input type="hidden" id="noteId" th:field="*{id}" />
     <textarea id="note"
               class="form-control flex-grow-1"
               placeholder="Start typing..."

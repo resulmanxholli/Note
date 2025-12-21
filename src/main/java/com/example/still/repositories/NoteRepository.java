@@ -3,5 +3,8 @@ package com.example.still.repositories;
 import com.example.still.entities.NoteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NoteRepository extends JpaRepository<NoteEntity,Long> {
+import java.util.Optional;
+
+public interface NoteRepository extends JpaRepository<NoteEntity,String> {
+    Optional<NoteEntity> findById(String id);
 }

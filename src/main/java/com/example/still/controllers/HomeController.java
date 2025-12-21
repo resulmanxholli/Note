@@ -1,6 +1,7 @@
 package com.example.still.controllers;
 
 import com.example.still.dtos.NoteDto;
+import com.example.still.hepler.RandomIdGenerator;
 import com.example.still.services.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,33 +13,30 @@ import org.springframework.web.bind.annotation.*;
 public class HomeController {
     private final NoteService noteService;
 
-    @GetMapping("/note")
-    public String show(Model model){
-        model.addAttribute("note", noteService.create());
-        return "notepad";
+    @GetMapping("/note/{id}")
+    public String show(@PathVariable String id, Model model){
+
+        model.addAttribute("note", noteService.getId(id));
+        return "note/notepad";
     }
 
+    @GetMapping("/note")
+    public String createAndRedirect() {
+        NoteDto noteDto= noteService.create();
+        return "redirect:/note/" + noteDto.getId();
+    }
+
+    @PostMapping("/note/{id}")
+    public String update(@PathVariable String id, @ModelAttribute NoteDto dto) {
+        noteService.add(dto);
+        return "redirect:/note/" + id;
+    }
 
     @PostMapping("/note/autosave")
     @ResponseBody
     public void autosave(@RequestBody NoteDto dto) {
-        dto.setId(1L);
-        noteService.add(dto);
+        noteService.update(dto.getId(),dto);
     }
-
-
-//    @GetMapping("/note")
-//    public String show(Model model){
-//        model.addAttribute("note", new NoteDto());
-//        return "notepad";
-//    }
-//
-//    @PostMapping("/note/autosave")
-//    @ResponseBody
-//    public void addNote(@RequestBody NoteDto noteDto){
-//        noteDto.setId(1L);
-//        noteService.add(noteDto);
-//    }
 
 
 }

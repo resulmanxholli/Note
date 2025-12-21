@@ -1,6 +1,7 @@
 package com.example.still.entities;
 
 
+import com.example.still.hepler.RandomIdGenerator;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,13 +11,12 @@ import lombok.Setter;
 @Entity(name = "notes")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class NoteEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     @Column(columnDefinition = "TEXT")
     private String note;
